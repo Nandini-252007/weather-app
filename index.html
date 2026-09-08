@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="weather-app">
+
+    <h1>🌤️ Weather App</h1>
+
+    <div class="search-box">
+        <input 
+    type="text" 
+    id="cityInput" 
+    placeholder="Enter city name"
+>
+
+<button onclick="searchCity()">Search</button>
+       
+    </div>
+    <div class="weather-info">
+    <h2 id="cityName">City</h2>
+    <div class="weather-icon" id="weatherIcon">🌤️</div>
+    <h3 id="temperature">--°C</h3>
+    <p id="description">Weather condition</p>
+</div>
+
+    
+
+    <div class="weather-details">
+
+        <div class="weather-card">
+            <h4>💧 Humidity</h4>
+            <p id="humidity">--%</p>
+        </div>
+
+        <div class="weather-card">
+            <h4>💨 Wind Speed</h4>
+            <p id="windSpeed">-- km/h</p>
+         </div>
+
+        <div class="weather-card">
+            <h4>🌡️ Feels Like</h4>
+            <p id="feelsLike">--°C</p>
+
+    </div>
+
+
+
+    
+
+    <div class="forecast">
+
+    <h2>5-Day Forecast</h2>
+
+    <div class="forecast-container">
+
+        <div class="forecast-card">
+            <h4>MON</h4>
+            <div>☀️</div>
+            <p>32°C</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>TUE</h4>
+            <div>🌧️</div>
+            <p>29°C</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>WED</h4>
+            <div>☁️</div>
+            <p>30°C</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>THU</h4>
+            <div>☀️</div>
+            <p>33°C</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>FRI</h4>
+            <div>🌤️</div>
+            <p>31°C</p>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script> 
+
+</body>
+
+</html>
