@@ -1,81 +1,182 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Weather App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A student weather dashboard with local demo accounts and role-based modules.">
+  <title>SkyCast | Weather Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="SkyCast home"><span class="brand-mark">☀</span> SkyCast</a>
+    <nav id="mainNav" class="main-nav" aria-label="Main navigation"></nav>
+  </header>
 
-    <div class="weather-app">
+  <main class="page-shell">
+    <section id="authView" class="auth-layout" aria-labelledby="welcomeTitle">
+      <div class="welcome-panel">
+        <p class="eyebrow">YOUR EVERYDAY WEATHER COMPANION</p>
+        <h1 id="welcomeTitle">A clearer view of your day.</h1>
+        <p>Search a city for current conditions and a five-day forecast. Create an account to save your recent searches.</p>
+        <div class="weather-art" aria-hidden="true">⛅</div>
+      </div>
 
-    <h1>🌤️ Weather App</h1>
-
-    <div class="search-box">
-        <input 
-    type="text" 
-    id="cityInput" 
-    placeholder="Enter city name"
->
-
-<button onclick="searchCity()">Search</button>
-       
-    </div>
-    <div class="weather-info">
-    <h2 id="cityName">City</h2>
-    <div class="weather-icon" id="weatherIcon">🌤️</div>
-    <h3 id="temperature">--°C</h3>
-    <p id="description">Weather condition</p>
-</div>
-
-    
-
-    <div class="weather-details">
-
-        <div class="weather-card">
-            <h4>💧 Humidity</h4>
-            <p id="humidity">--%</p>
+      <div class="auth-card">
+        <div class="auth-tabs" role="tablist" aria-label="Account options">
+          <button id="loginTab" class="tab-button active" role="tab" aria-selected="true" type="button">Log in</button>
+          <button id="signupTab" class="tab-button" role="tab" aria-selected="false" type="button">Create account</button>
         </div>
 
-        <div class="weather-card">
-            <h4>💨 Wind Speed</h4>
-            <p id="windSpeed">-- km/h</p>
-         </div>
+        <form id="loginForm" class="auth-form">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue to your dashboard.</p>
 
-        <div class="weather-card">
-            <h4>🌡️ Feels Like</h4>
-            <p id="feelsLike">--°C</p>
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" autocomplete="username" required placeholder="you@example.com">
 
-    </div>
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Enter your password">
 
+          <button class="button primary full" type="submit">Log in</button>
+          <p class="demo-note">Review demo admin: <strong>admin@skycast.demo</strong> · <strong>admin123</strong></p>
 
+          <div class="guest-entry">
+            <span>Just want to check the weather?</span>
+            <button class="button guest-button" id="guestButton" type="button">Continue without an account</button>
+          </div>
+        </form>
 
-    
+        <form id="signupForm" class="auth-form hidden">
+          <h2>Create your account</h2>
+          <p class="muted">Your account is stored in this browser for this project demo.</p>
 
-    <div class="forecast">
+          <label for="signupName">Full name</label>
+          <input id="signupName" type="text" autocomplete="name" required minlength="2" placeholder="Your name">
 
-    <h2>5-Day Forecast</h2>
+          <label for="signupEmail">Email</label>
+          <input id="signupEmail" type="email" autocomplete="email" required placeholder="you@example.com">
 
-    <div class="forecast" id="forecast"></div>
+          <label for="signupPassword">Password</label>
+          <input id="signupPassword" type="password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters">
 
-    
+          <button class="button primary full" type="submit">Create account</button>
+        </form>
 
-        
-    </div>
+        <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+      </div>
+    </section>
 
-</div>
+    <section id="userView" class="module hidden" aria-labelledby="userHeading">
+      <div class="module-heading">
+        <div>
+          <p class="eyebrow">USER MODULE</p>
+          <h1 id="userHeading">Your weather dashboard</h1>
+          <p class="muted">Welcome, <span id="userDisplayName"></span>. Check conditions anywhere.</p>
+        </div>
+      </div>
 
-</div>
+      <section class="weather-panel" aria-label="City weather search">
+        <form id="searchForm" class="search-box">
+          <label class="sr-only" for="cityInput">City name</label>
+          <input type="search" id="cityInput" placeholder="Search a city, e.g. Mumbai" required>
+          <button class="button primary" type="submit">Search weather</button>
+        </form>
 
-</div>
+        <p id="weatherMessage" class="message" role="status" aria-live="polite"></p>
 
-<script src="script.js"></script> 
+        <div class="weather-info">
+          <div>
+            <p id="weatherLocation" class="eyebrow">CURRENT CONDITIONS</p>
+            <h2 id="cityName">Choose a city</h2>
+            <p id="description" class="muted">Your local forecast will appear here.</p>
+          </div>
+          <div class="temperature-wrap">
+            <span class="weather-icon" id="weatherIcon" aria-hidden="true">🌤️</span>
+            <strong id="temperature">--°</strong>
+          </div>
+        </div>
 
+        <div class="weather-details">
+          <article class="weather-card">
+            <span>💧</span>
+            <div><p class="muted">Humidity</p><strong id="humidity">--%</strong></div>
+          </article>
+          <article class="weather-card">
+            <span>💨</span>
+            <div><p class="muted">Wind speed</p><strong id="windSpeed">--</strong></div>
+          </article>
+          <article class="weather-card">
+            <span>🌡️</span>
+            <div><p class="muted">Feels like</p><strong id="feelsLike">--°</strong></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="forecast-section">
+        <div class="section-heading">
+          <div><p class="eyebrow">PLAN AHEAD</p><h2>5-day forecast</h2></div>
+        </div>
+        <div class="forecast-grid" id="forecast">
+          <p class="muted">Search a city to see its forecast.</p>
+        </div>
+      </section>
+
+      <section class="recent-section">
+        <div class="section-heading">
+          <div><p class="eyebrow">QUICK ACCESS</p><h2>Recent searches</h2></div>
+        </div>
+        <div id="recentSearches" class="recent-list">
+          <p class="muted">Your searches will appear here.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="adminView" class="module hidden" aria-labelledby="adminHeading">
+      <div class="module-heading">
+        <div>
+          <p class="eyebrow">ADMIN MODULE</p>
+          <h1 id="adminHeading">Administration</h1>
+          <p class="muted">Review demo account activity and manage the local user list.</p>
+        </div>
+      </div>
+
+      <div class="admin-stats">
+        <article class="stat-card">
+          <span class="stat-icon">👥</span>
+          <p class="muted">Registered accounts</p>
+          <strong id="userCount">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon">🔎</span>
+          <p class="muted">Saved searches</p>
+          <strong id="searchCount">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon">☁️</span>
+          <p class="muted">Application</p>
+          <strong>Weather</strong>
+        </article>
+      </div>
+
+      <section class="table-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">USER MANAGEMENT</p><h2>Registered users</h2></div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Recent activity</th><th>Role</th></tr>
+            </thead>
+            <tbody id="usersTable"></tbody>
+          </table>
+        </div>
+        <p class="muted table-note">This student project stores demo data in the current browser only.</p>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">SkyCast Weather Dashboard <span>•</span> Student project demo</footer>
+  <script src="script.js"></script>
 </body>
-
 </html>
